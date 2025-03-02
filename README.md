@@ -1,4 +1,4 @@
-# Localizations
+# Localization
 Code of the paper “Local MALA-within-Gibbs for Bayesian Image Deblurring with Total Variation Prior” (http://arxiv.org/abs/2409.09810) which is submitted to SIAM Scientific Computing and currently under review.
 
 ## Instructions

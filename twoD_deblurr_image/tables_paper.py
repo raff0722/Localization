@@ -27,11 +27,12 @@ for kk, ii in enumerate([3,5,7]):
     stats = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data\conf8', f'sam_lM_eps{ii}', 'stats'))
     sam = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data\conf8', f'sam_lM_eps{ii}', 'par'))
     
-    p_eps[kk] += f'&{np.mean( stats["ESS"] / sam["N_po"] ) *100 :.1f}'
-    p_eps[kk] += f'&{ np.mean( np.array([stats["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
-    p_eps[kk] += f'&{ np.mean( np.array([stats["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
-    p_eps[kk] += f'&{ np.max(stats["rhat"]) :.2f}'
-    p_eps[kk] += f'&{ np.median(stats["rhat"]) :.2f}'
+    p_eps[kk] += f'&{np.min( np.mean(stats["ESS"], axis=1) / sam["N_po"] ) *100 :.1f}'
+    # p_eps[kk] += f'&{np.mean( stats["ESS"] / sam["N_po"] ) *100 :.1f}'
+    p_eps[kk] += f'&{np.mean( np.array([stats["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
+    p_eps[kk] += f'&{np.mean( np.array([stats["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
+    p_eps[kk] += f'&{np.max(stats["rhat"]) :.2f}'
+    p_eps[kk] += f'&{np.median(stats["rhat"]) :.2f}'
 
     if kk < 2: print(p_eps[kk]+'\\\\')
     else: 
@@ -67,11 +68,12 @@ for ii in range(4):
     stats_MLwG = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii+5), 'sam_lM_fix\stats'))
     sam_MLwG = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii+5), 'sam_lM_fix\par'))
     
-    p_nESS_MLWG += f'&{np.mean( stats_MLwG["ESS"] / sam_MLwG["N_po"] ) *100 :.1f}'
-    p_tau_MLWG += f'&{ np.mean( np.array([stats_MLwG["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
-    p_alpha_MLWG += f'&{ np.mean( np.array([stats_MLwG["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
-    p_burn_MLWG += f'&{ sam_MLwG["N_b"] *1e-3 :.3f}'
-    p_rhat_MLWG += f'&{ np.max(stats_MLwG["rhat"]) :.2f}'
+    p_nESS_MLWG += f'&{np.min(np.mean(stats_MLwG["ESS"] / sam_MLwG["N_po"], axis=1)) *100 :.1f}'
+    # p_nESS_MLWG += f'&{np.mean( stats_MLwG["ESS"] / sam_MLwG["N_po"] ) *100 :.1f}'
+    p_tau_MLWG += f'&{np.mean( np.array([stats_MLwG["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
+    p_alpha_MLWG += f'&{np.mean( np.array([stats_MLwG["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
+    p_burn_MLWG += f'&{sam_MLwG["N_b"] *1e-3 :.3f}'
+    p_rhat_MLWG += f'&{np.max(stats_MLwG["rhat"]) :.2f}'
     
 
     # MALA
@@ -79,11 +81,12 @@ for ii in range(4):
     stats_MALA = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii+5), 'sam_fM\stats'))
     sam_MALA = pickle_routines.load(PurePath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii+5), 'sam_fM\par'))
 
-    p_nESS_MALA += f'&{np.mean( stats_MALA["ESS"] / sam_MALA["N_po"] ) *100 :.1f}'
-    p_tau_MALA += f'&{ np.mean( np.array([stats_MALA["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
-    p_alpha_MALA += f'&{ np.mean( np.array([stats_MALA["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
-    p_burn_MALA += f'&{ sam_MALA["N_b"] *1e-3 :.3f}'
-    p_rhat_MALA += f'&{ np.max(stats_MALA["rhat"]) :.2f}'
+    p_nESS_MALA += f'&{np.min(np.mean(stats_MALA["ESS"] / sam_MALA["N_po"], axis=1)) *100 :.1f}'
+    # p_nESS_MALA += f'&{np.mean( stats_MALA["ESS"] / sam_MALA["N_po"] ) *100 :.1f}'
+    p_tau_MALA += f'&{np.mean( np.array([stats_MALA["out"][ii]["h"] for ii in range(5)]) ) *1e6 :.1f}'
+    p_alpha_MALA += f'&{np.mean( np.array([stats_MALA["out"][ii]["acc"] for ii in range(5)]) ) *100 :.1f}'
+    p_burn_MALA += f'&{sam_MALA["N_b"] *1e-3 :.3f}'
+    p_rhat_MALA += f'&{np.max(stats_MALA["rhat"]) :.2f}'
 
 
 print(p_nESS_MLWG+'\\\\')

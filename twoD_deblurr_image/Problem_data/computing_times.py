@@ -40,7 +40,8 @@ def main():
             MALA_WALL[kk, jj] = stats['out'][jj]['time'][1] / (sam['N_po']*sam['th'])
 
         # load MLWG sampling parameters
-        sam_path = PureWindowsPath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii), 'sam_lM\par')
+        if ii == 8: sam_path = PureWindowsPath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii), 'sam_lM_eps5\par')
+        else: sam_path = PureWindowsPath(r'twoD_deblurr_image\Problem_data', 'conf'+str(ii), 'sam_lM\par')
         sam = pickle_routines.load(sam_path)
 
         # compute sampling time per sample (no burn-in since fixed step size)

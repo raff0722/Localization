@@ -12,7 +12,7 @@ from Localization.plots_conf import SISC
 from Localization.twoD_deblurr_image import functions
 from Localization.twoD_deblurr_image.Problem_data import computing_times
 
-plot_dir = PurePath(r'C:\Users\raff\Projects\Localization\Overleaf\SISC\main_6\Graphics')
+plot_dir = PurePath(r'C:\Users\flock\projects\Localization\manuscripts\Graphics')
 data_dir = PurePath( r'twoD_deblurr_image\Problem_data' )
 
 #%% Figure 3: complete image with sections and data
@@ -67,9 +67,9 @@ grid[1].set_xticks([])
 
 # colorbar
 grid[1].cax.colorbar(im)
-grid[1].cax.toggle_label(True)
+# grid[1].cax.toggle_label(True)
 
-plt.tight_layout()
+# plt.tight_layout()
 plt.savefig(plot_dir / 'compl_sect_noCol.pdf', dpi=1000)
 # plt.savefig(plot_dir / 'compl_sect_ex1.pdf', dpi=1000)
 
@@ -97,7 +97,7 @@ grid = ImageGrid(fig, 111,          # as in plt.subplot(111)
 
 for ii, eps_ii in enumerate(eps):
 
-    map_path = data_dir / 'conf8' / ('sam_fM_eps'+eps_ii) / 'map_eps'
+    map_path = data_dir / 'conf8' / ('sam_lM_eps'+eps_ii) / 'map_eps'
     map = functions.load( map_path)
 
     stats_path = data_dir / 'conf8' / ('sam_lM_eps'+eps_ii) / 'stats'
@@ -110,17 +110,17 @@ for ii, eps_ii in enumerate(eps):
     im = grid.axes_row[ii][0].imshow(functions.res(map, (N,N)), vmin=0, vmax=par['max_int'], cmap='gray')
     grid.axes_row[ii][0].set_axisbelow(True)
     grid.axes_row[ii][0].cax.colorbar(im)
-    grid.axes_row[ii][0].cax.toggle_label(True)
+    # grid.axes_row[ii][0].cax.toggle_label(True)
 
     im = grid.axes_row[ii][1].imshow(functions.res(mean, (N,N)), cmap='gray', vmin=0, vmax=par['max_int'])
     grid.axes_row[ii][1].set_axisbelow(True)
     grid.axes_row[ii][1].cax.colorbar(im)
-    grid.axes_row[ii][1].cax.toggle_label(True)
+    # grid.axes_row[ii][1].cax.toggle_label(True)
 
     im = grid.axes_row[ii][2].imshow(functions.res(CI_u-CI_l, (N,N)), cmap='gray', vmin=vmin_CI, vmax=vmax_CI)
     grid.axes_row[ii][2].set_axisbelow(True)
     grid.axes_row[ii][2].cax.colorbar(im)
-    grid.axes_row[ii][2].cax.toggle_label(True)
+    # grid.axes_row[ii][2].cax.toggle_label(True)
 
     grid.axes_row[ii][0].set_ylabel(r'$\varepsilon=10^{-'+eps_ii+'}$')    
     grid.axes_row[ii][0].set_xticks([])
@@ -244,7 +244,7 @@ plt.xticks([0, 1, 2, 3], [r'$128\times128$'+r' -- $1$',
                         ])
 
 plt.xlabel('problem size -- number of extra cores for MLwG')
-plt.ylabel('time/sample [sec]')
+plt.ylabel('time/1000 samples [sec]')
 
 plt.title('Computation times')
 plt.legend()
@@ -285,7 +285,7 @@ grid[0].set_title(r'True image')
 grid[0].set_yticks([])
 grid[0].set_xticks([])
 grid[0].cax.colorbar(im)
-grid[0].cax.toggle_label(True)
+# grid[0].cax.toggle_label(True)
 
 im = grid[1].imshow(y_im, vmin=0, vmax=par['max_int'], cmap='gray')
 grid[1].set_axisbelow(True)
@@ -293,21 +293,21 @@ grid[1].set_title(r'Data')
 grid[1].set_yticks([])
 grid[1].set_xticks([])
 grid[1].cax.colorbar(im)
-grid[1].cax.toggle_label(True)
+# grid[1].cax.toggle_label(True)
 
 im = grid[2].imshow(functions.res(mean, (N,N)), vmin=0, vmax=par['max_int'], cmap='gray')
 grid[2].set_title(r'Mean')
 grid[2].set_yticks([])
 grid[2].set_xticks([])
 grid[2].cax.colorbar(im)
-grid[2].cax.toggle_label(True)
+# grid[2].cax.toggle_label(True)
 
 im = grid[3].imshow(functions.res(CI_u-CI_l, (N,N)), cmap='gray') # , vmin=vmin_CI, vmax=par['max_int']
 grid[3].set_title(r'90% CI difference')
 grid[3].set_yticks([])
 grid[3].set_xticks([])
 grid[3].cax.colorbar(im)
-grid[3].cax.toggle_label(True)
+# grid[3].cax.toggle_label(True)
 
 plt.tight_layout()
 plt.savefig(plot_dir / 'house.pdf', dpi=1000)

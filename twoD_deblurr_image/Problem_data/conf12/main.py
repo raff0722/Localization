@@ -11,7 +11,7 @@ conf_nr = '12'
 
 # parameters
 par = {
-    'image_file' : PureWindowsPath( r'twoD_deblurr_image\cameraman_512.tif' ),
+    'image_file' : PureWindowsPath( r'twoD_deblurr_image\house_512.tif' ),
     'max_int' : 1,
     'section': ((0*64,8*64), (0*64,8*64)),
     'down_sam' : 1,
@@ -35,11 +35,11 @@ functions.save(par['problem_dir'] / 'par', par)
 # create problem
 problem.main(par)
 
-# adaptive TV to find delta and the MAP (eps=0)
-x_im, y_im_true, y_im, lam, N, d = functions.load(par['problem_dir'] / 'problem')
-kernel = functions.motion_kernel(par['radius'], par['theta'])
-conv_op = lambda x: convolution.conv(x, x_im.shape, par['blur'], par['radius'], std=par['blur_std'], kernel=kernel, BC=par['ext_mode_blur'])
-conv_op_T = lambda y: convolution.conv_T(y, x_im.shape, par['blur'], par['radius'], std=par['blur_std'], kernel=kernel, BC=par['ext_mode_blur'])
-delta_TV, x_MAP_TV = maj_min_TV_deblurring.adaptive_debl(functions.rav(y_im), conv_op, conv_op_T, par['ext_mode_blur'], 1/lam, mode='TV', max_int=par['max_int'], beta=1, alpha=1, theta='default')
-functions.save(par['problem_dir'] / 'map_ad_TV', x_MAP_TV)
-functions.save(par['problem_dir'] / 'delta_ad_TV', delta_TV)
+# # adaptive TV to find delta and the MAP (eps=0)
+# x_im, y_im_true, y_im, lam, N, d = functions.load(par['problem_dir'] / 'problem')
+# kernel = functions.motion_kernel(par['radius'], par['theta'])
+# conv_op = lambda x: convolution.conv(x, x_im.shape, par['blur'], par['radius'], std=par['blur_std'], kernel=kernel, BC=par['ext_mode_blur'])
+# conv_op_T = lambda y: convolution.conv_T(y, x_im.shape, par['blur'], par['radius'], std=par['blur_std'], kernel=kernel, BC=par['ext_mode_blur'])
+# delta_TV, x_MAP_TV = maj_min_TV_deblurring.adaptive_debl(functions.rav(y_im), conv_op, conv_op_T, par['ext_mode_blur'], 1/lam, mode='TV', max_int=par['max_int'], beta=1, alpha=1, theta='default')
+# functions.save(par['problem_dir'] / 'map_ad_TV', x_MAP_TV)
+# functions.save(par['problem_dir'] / 'delta_ad_TV', delta_TV)
